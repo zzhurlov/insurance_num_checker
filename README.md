@@ -1,2 +1,2 @@
-# insurance_num_checker
-Insurance Number Checker
+# Insurance Number Checker
+Веб-приложение (Микросервис) для Пенсионного фонда Российской Федерации
