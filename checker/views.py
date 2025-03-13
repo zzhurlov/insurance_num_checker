@@ -17,7 +17,7 @@ class CheckInsuranceNumberView(APIView):
         """,
     )
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(request.data)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             data = serializer.validated_data
             try:
