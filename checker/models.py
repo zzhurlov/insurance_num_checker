@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+
+class InsuranceNumber(models.Model):
+    number = models.CharField(max_length=14)
