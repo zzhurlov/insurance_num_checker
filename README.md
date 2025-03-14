@@ -28,7 +28,7 @@
 * uritemplate==4.1.1
 
 # Запуск
-В корне проекта пишем ```python manage.py runserver```
+В корне проекта запускаем через ```python manage.py runserver```
 Переходим по эндпоинту /api/docs/  и тестим!
 
 # Скриншоты API-шки
