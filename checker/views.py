@@ -20,11 +20,15 @@ class CheckInsuranceNumberView(APIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             data = serializer.validated_data
+
             try:
                 insurance_number = InsuranceNumber.objects.get(number=data["number"])
             except InsuranceNumber.DoesNotExist:
                 return Response(
-                    data={"message": "This insurance number does not exists!"}
+                    data={"message": "This insurance number does not exists!"},
+                    status=404,
                 )
 
-            return Response(data={"message": "НАЙДЕН"}, status=200)
+            return Response(
+                data={"message": f"{insurance_number.number} НАЙДЕН"}, status=200
+            )

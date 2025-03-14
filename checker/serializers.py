@@ -1,12 +1,9 @@
 from rest_framework import serializers
-from checker.models import InsuranceNumber
 from string import punctuation
 
 
-class InsuranceNumberSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = InsuranceNumber
-        fields = ["number"]
+class InsuranceNumberSerializer(serializers.Serializer):
+    number = serializers.CharField()
 
     def validate_number(self, value: str):
         """
@@ -16,10 +13,10 @@ class InsuranceNumberSerializer(serializers.ModelSerializer):
         1) XXXXXXXXXYY
         2) XXX-XXX-XXX YY
         """
-        value.strip()
+        value = value.strip()
         # проверяем длину
         if len(value) != 14 and len(value) != 11:
-            return serializers.ValidationError(
+            raise serializers.ValidationError(
                 "длина СНИЛС должна составлять 14 символов"
             )
 
@@ -27,11 +24,9 @@ class InsuranceNumberSerializer(serializers.ModelSerializer):
         fixed_punctuation = punctuation.replace("-", "")
         for char in value:
             if char.isalpha():
-                return serializers.ValidationError("СНИЛС не должен иметь букв")
+                raise serializers.ValidationError("СНИЛС не должен иметь букв")
             elif char in fixed_punctuation:
-                return serializers.ValidationError(
-                    "СНИЛС не должен иметь спец символов"
-                )
+                raise serializers.ValidationError("СНИЛС не должен иметь спец символов")
 
         check_sum_in = value[-2:]
 
@@ -42,13 +37,13 @@ class InsuranceNumberSerializer(serializers.ModelSerializer):
                 len(splitted_value) != 3
                 and len(splitted_value[0]) != 3
                 and len(splitted_value[1]) != 3
-                and len(splitted_value[2] != 5)
+                and len(splitted_value[2]) != 5
             ):
-                return serializers.ValidationError("Некорректный СНИЛС")
+                raise serializers.ValidationError("Некорректный СНИЛС")
 
             value = value[:-3].replace("-", "")
-
-        value = value[:-2].strip()
+        else:
+            value = value[:-2].strip()
 
         indexes = [9, 8, 7, 6, 5, 4, 3, 2, 1]
         check_sum_out = 0
@@ -61,5 +56,5 @@ class InsuranceNumberSerializer(serializers.ModelSerializer):
         elif (check_sum_out == 100 or check_sum_out == 101) and check_sum_in == "00":
             return value + check_sum_in
 
-        elif check_sum_out > 101 and str(check_sum_out % 101) == check_sum_in:
+        elif check_sum_out > 101 and f"{check_sum_out % 101}" == check_sum_in:
             return value + check_sum_in
