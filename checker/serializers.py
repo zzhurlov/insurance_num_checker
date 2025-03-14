@@ -56,5 +56,8 @@ class InsuranceNumberSerializer(serializers.Serializer):
         elif (check_sum_out == 100 or check_sum_out == 101) and check_sum_in == "00":
             return value + check_sum_in
 
-        elif check_sum_out > 101 and f"{check_sum_out % 101}" == check_sum_in:
+        elif check_sum_out > 101 and f"{check_sum_out % 101:02d}" == check_sum_in:
             return value + check_sum_in
+
+        else:
+            raise serializers.ValidationError("Некорректный номер СНИЛС")

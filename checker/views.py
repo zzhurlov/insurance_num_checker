@@ -32,3 +32,4 @@ class CheckInsuranceNumberView(APIView):
             return Response(
                 data={"message": f"{insurance_number.number} НАЙДЕН"}, status=200
             )
+        return Response(data=serializer.errors, status=400)
