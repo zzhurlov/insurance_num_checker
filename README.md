@@ -1,5 +1,5 @@
 # Insurance Number Checker
-API для Пенсионного фонда Российской Федерации. Написано на Django.
+API для Пенсионного фонда Российской Федерации. Написан на Django.
 
 # Стек технологий:
 * Python
@@ -31,7 +31,7 @@ API для Пенсионного фонда Российской Федерац
 В корне проекта запускаем через ```python manage.py runserver```
 Переходим по эндпоинту /api/docs/  и тестим!
 
-# Скриншоты API-шки
+# Скриншоты API
 <img width="1307" alt="Снимок экрана 2025-03-14 в 16 35 47" src="https://github.com/user-attachments/assets/0b13e6ee-8cc3-468f-abe0-db9bb31bb048" />
 <img width="1300" alt="Снимок экрана 2025-03-14 в 16 36 02" src="https://github.com/user-attachments/assets/0d73cb73-6485-43f5-aeda-72f0b3ea80f4" />
 
